@@ -1,0 +1,72 @@
+= damthathappymapper
+
+== DESCRIPTION:
+An object to xml mapping library originally created by John Nunemaker (jnunemaker) to work 
+with the libxml-ruby library.  However it has now been ported by Damien Le Berrigaud's (dam5s) 
+to use Nokogiri instead. 
+
+This is a custom version of HappyMapper, available here:
+http://github.com/dam5s/happymapper/
+
+== FEATURES:
+
+* Easy to define xml attributes and elements for an object
+* Rather fast since it uses Nokogiri under the hood
+* Automatic conversion of xml to defined objects
+* Reusable classes via a node finding mechanism that searches by 
+	1. specified tag,
+	2. name of element, 
+	3. class name. (gemspec was upgraded to 0.3.0 for this change)
+
+
+== EXAMPLES:
+
+Here is a simple example that maps Twitter statuses and users.
+
+  class User
+    include HappyMapper
+
+    element :id, Integer
+    element :name, String
+    element :screen_name, String
+    element :location, String
+    element :description, String
+    element :profile_image_url, String
+    element :url, String
+    element :protected, Boolean
+    element :followers_count, Integer
+  end
+
+  class Status
+    include HappyMapper
+
+    element :id, Integer
+    element :text, String
+    element :created_at, Time
+    element :source, String
+    element :truncated, Boolean
+    element :in_reply_to_status_id, Integer
+    element :in_reply_to_user_id, Integer
+    element :favorited, Boolean
+    has_one :user, User
+  end
+
+
+More examples can be found in the examples directory at:
+
+http://github.com/jnunemaker/happymapper/tree/master/examples/
+
+== INSTALL:
+
+* sudo gem install damthathappymapper
+
+config.gem 'damthathappermapper'
+
+
+== TICKETS:
+
+http://github.com/jnunemaker/happymapper/issues/
+
+== DOCS:
+
+http://rdoc.info/projects/jnunemaker/happymapper
